@@ -1,6 +1,6 @@
-package com.bootcamp.service;
+package com.bootcamp.services;
 
-import com.bootcamp.model.City;
+import com.bootcamp.models.City;
 
 import java.io.File;
 import java.io.FileNotFoundException;

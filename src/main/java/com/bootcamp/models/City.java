@@ -1,4 +1,4 @@
-package com.bootcamp.model;
+package com.bootcamp.models;
 
 import java.util.Objects;
 

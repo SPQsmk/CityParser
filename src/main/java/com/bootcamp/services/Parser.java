@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class CityParser {
-    private CityParser() {}
+public class Parser {
+    private Parser() {}
 
     public static List<City> parse(String fileName) {
         List<City> res = new ArrayList<>();

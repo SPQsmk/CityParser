@@ -1,13 +1,22 @@
-package com.bootcamp.model;
+package com.bootcamp.models;
 
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
+@Table(name = "city")
 public class City {
-    private final String name;
-    private final String region;
-    private final String district;
-    private final int population;
-    private final int foundation;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    private String name;
+    private String region;
+    private String district;
+    private int population;
+    private int foundation;
+
+    public City() {
+    }
 
     public City(String name, String region, String district, int population, int foundation) {
         Objects.requireNonNull(name, "Incorrect name");

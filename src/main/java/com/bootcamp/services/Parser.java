@@ -9,7 +9,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Parser {
-    private Parser() {}
+    private Parser() {
+    }
 
     public static List<City> parse(String fileName) {
         List<City> res = new ArrayList<>();
@@ -31,6 +32,7 @@ public class Parser {
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            System.exit(-1);
         } catch (NumberFormatException e) {
             e.printStackTrace();
             System.exit(-1);

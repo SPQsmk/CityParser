@@ -1,17 +1,18 @@
 package com.bootcamp.services;
 
+import com.bootcamp.dao.DAO;
 import com.bootcamp.models.City;
-import org.hibernate.SessionFactory;
 
 import java.util.*;
 
 public class CityService {
     private List<City> cities;
-    private SessionFactory factory;
+    private DAO dao;
 
     public CityService() {
-        cities = Parser.parse("src/main/resources/cities.txt");
-
+        dao = new DAO();
+        dao.writeCitiesToDB(Parser.parse("src/main/resources/cities.txt"));
+        cities = dao.getCitiesFromDB();
     }
 
     public List<City> getCities() {
@@ -38,7 +39,7 @@ public class CityService {
 
     public int[] getMaxPopulationData() {
         if (cities.isEmpty())
-            return new int[] {-1, -1};
+            return new int[]{-1, -1};
 
         City[] arr = new City[cities.size()];
         cities.toArray(arr);
@@ -55,7 +56,7 @@ public class CityService {
             }
         }
 
-        return new int[] {maxIndex, maxPopulation};
+        return new int[]{maxIndex, maxPopulation};
     }
 
     public Map<String, Integer> getRegions() {

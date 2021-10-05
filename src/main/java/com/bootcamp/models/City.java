@@ -15,7 +15,8 @@ public class City {
     private int population;
     private int foundation;
 
-    public City() {}
+    public City() {
+    }
 
     public City(String name, String region, String district, int population, int foundation) {
         Objects.requireNonNull(name, "Incorrect name");

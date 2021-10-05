@@ -5,9 +5,9 @@ import java.util.Scanner;
 public class Manager {
     public static void showMenu() {
         try (Scanner sc = new Scanner(System.in)) {
+            showActions();
             String s;
             while (!(s = sc.next()).equals("q")) {
-                showActions();
                 switch (s) {
                     case "1":
                         System.out.println(1);

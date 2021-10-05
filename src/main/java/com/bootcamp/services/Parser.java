@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class CityParser {
+    private CityParser() {}
+
     public static List<City> parse(String fileName) {
         List<City> res = new ArrayList<>();
 

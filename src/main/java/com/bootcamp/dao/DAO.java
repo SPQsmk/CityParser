@@ -3,15 +3,15 @@ package com.bootcamp.dao;
 import com.bootcamp.models.City;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.exception.ConstraintViolationException;
 
 import javax.persistence.PersistenceException;
 import java.util.List;
 
 public class DAO {
-    SessionFactory factory;
+    private SessionFactory factory;
 
     public DAO() {
         try {
@@ -26,22 +26,26 @@ public class DAO {
     }
 
     public void writeCitiesToDB(List<City> list) {
-        try {
-            Session session = factory.openSession();
-            Transaction transaction = session.beginTransaction();
-
-            for (City o : list)
-                session.save(o);
-
-            transaction.commit();
-            session.close();
+        try (Session session = factory.openSession()) {
+            for (City o : list) {
+                try {
+                    session.beginTransaction();
+                    session.save(o);
+                    session.getTransaction().commit();
+                } catch (ConstraintViolationException e) {
+                    System.out.println("Дубликат: " + o);
+                    session.getTransaction().rollback();
+                }
+            }
         } catch (PersistenceException e) {
-            System.out.println("БД заполнена");
+            e.printStackTrace();
+            System.exit(-1);
         }
     }
 
     public List<City> getCitiesFromDB() {
-        Session session = factory.openSession();
-        return session.createQuery("select c from City c", City.class).getResultList();
+        try (Session session = factory.openSession()) {
+            return session.createQuery("select c from City c", City.class).getResultList();
+        }
     }
 }
